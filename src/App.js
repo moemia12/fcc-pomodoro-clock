@@ -6,14 +6,68 @@ import React, { Component } from 'react';
 import ClockContainer from './components/ClockContainer'
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.loop = undefined;
+  }
+
+  //Initialising states
   state = {
     breakCount: 5,
-    sessionCount: 25
+    sessionCount: 25,
+    clockCount: 25*60,
+    currentTimer: 'Session',
+    isPlaying: false,
+    loop: undefined
+  }
+  
+  //Function to start and pause timer
+  handlePlayPause = () =>{
+    const {isPlaying} = this.state;
+
+    //Loop will be cleared if playing
+    if(isPlaying){
+      clearInterval(this.loop);
+
+      // State setto false if playing
+      this.setState({
+        isPlaying: false
+      });
+    } else {
+
+    // State set to true if playing
+    this.setState({
+      isPlaying: true
+    })
+
+    this.loop = setInterval(() => {
+      const { clockCount } = this.state;
+
+      //Countdown from clockCount minus 1second
+      this.setState({
+        clockCount: clockCount - 1
+      });
+    }, 1000);
+
+    }
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.loop);
+  }
+
+  //Converting count to seconds & minutes
+  convertToTime = (count) =>{
+    const minutes = Math.floor(count / 60);
+    let seconds = count % 60;
+
+    seconds = seconds < 10? ('0' + seconds) : seconds;
+    return `${minutes}: ${seconds}`;
   }
 
   render() {
 
-    const { breakCount, sessionCount } = this.state;
+    const { breakCount, sessionCount, clockCount, currentTimer, isPlaying } = this.state;
 
     const breakProps = {
       title: 'Break Length',
@@ -32,6 +86,9 @@ class App extends React.Component {
     const buttonStyle ={
       padding: '1rem',
       margin: '0 1rem',
+      position: 'relative',
+      bottom: '3.5rem',
+      width: '6rem'
       
     }
 
@@ -42,16 +99,16 @@ class App extends React.Component {
           <Blinds {...sessionProps} />
         </div>
 
-        <h1>Session</h1>
+        
         <div className='ClockContainer'>
-          
-          <span >25:00</span>
+        <h1 style={{position: 'relative', bottom: '7rem'}}>{currentTimer}</h1>
+          <span style={{position: 'relative', bottom: '5rem', fontSize: '3rem'}}>{this.convertToTime(clockCount)}</span>
           <div className='flex'>
-            <button onClick={this.handlePlayPause}>
-              <i className='fas fa-play' style={buttonStyle}/>
+            <button onClick={this.handlePlayPause} style={buttonStyle}>
+              <i className={`fas fa-${isPlaying ? 'pause' : 'play'}`}/>
             </button>
-            <button onClick={this.handleReset}>
-              <i className='fas fa-sync' style={buttonStyle} />
+            <button onClick={this.handleReset} style={buttonStyle} >
+              <i className='fas fa-sync'/>
             </button>
           </div>
         </div>
