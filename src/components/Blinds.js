@@ -17,15 +17,15 @@ const buttonPlatform = {
     boxShadow: '0px 0px 15px 5px rgba(0,0,0,0.75)'
 }
 
-const Blinds = () => (
+const Blinds = (props) => (
     <div className='timer-container'>
-        <h1>Blinds</h1>
+        <h1>{props.title}</h1>
         <div style={buttonPlatform}>
-            <button>
+            <button onClick={props.handleDecrease}>
                 < i className='fas fa-minus' style={buttonStyle}>-</i>
             </button>
-            <span style={buttonStyle}>5</span>
-            <button>
+            <span style={buttonStyle}>{props.count}</span>
+            <button onClick={props.handleIncrease}>
                 <i className='fas fa-plus' style={buttonStyle}>+</i>
             </button>
         </div>
