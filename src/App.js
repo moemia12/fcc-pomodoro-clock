@@ -6,20 +6,25 @@ import React, { Component } from 'react';
 import ClockContainer from './components/ClockContainer'
 
 class App extends React.Component {
+    //Initialising states
+    state = {
+      breakCount: 5,
+      sessionCount: 25,
+      clockCount: 25*60,
+      currentTimer: 'Session',
+      isPlaying: false
+    }
+  
   constructor(props) {
     super(props);
     this.loop = undefined;
   }
 
-  //Initialising states
-  state = {
-    breakCount: 5,
-    sessionCount: 25,
-    clockCount: 25*60,
-    currentTimer: 'Session',
-    isPlaying: false,
-    loop: undefined
+  componentWillUnmount() {
+    clearInterval(this.loop);
   }
+
+
 
   //Function to start and pause timer
   handlePlayPause = () => {
@@ -60,7 +65,15 @@ class App extends React.Component {
     }
   }
 
-  componentWillUnmount() {
+  handleReset = () =>{
+    this.setState({
+      breakCount: 5,
+      sessionCount: 25,
+      clockCount: 25 * 60,
+      currentTimer: 'Session',
+      isPlaying: false,
+    });
+
     clearInterval(this.loop);
   }
 
@@ -73,22 +86,54 @@ class App extends React.Component {
     return `${minutes}: ${seconds}`;
   }
 
+  handleBreakDecrease = () =>{
+    const {breakCount} = this.state;
+
+    this.setState({
+      breakCount: breakCount - 1
+    });
+  }
+
+  handleBreakIncrease = () =>{
+    const {breakCount} = this.state;
+
+    this.setState({
+      breakCount: breakCount + 1
+    });
+  }
+
+  handleSessionDecrease = () =>{
+    const {sessionCount} = this.state;
+
+    this.setState({
+      sessionCount: sessionCount - 1
+    });
+  }
+
+  handleSessionIncrease = () =>{
+    const {sessionCount} = this.state;
+
+    this.setState({
+      sessionCount: sessionCount + 1
+    });
+  }
+
   render() {
 
     const { breakCount, sessionCount, clockCount, currentTimer, isPlaying } = this.state;
 
     const breakProps = {
       title: 'Break Length',
-      count: 5,
+      count: breakCount,
       handleDecrease: this.handleBreakDecrease,
       handleIncrease: this.handleBreakIncrease
     }
 
     const sessionProps = {
       title: 'Session Length',
-      count: 25,
-      handleDecrease: this.handleBreakDecrease,
-      handleIncrease: this.handleBreakIncrease
+      count: sessionCount,
+      handleDecrease: this.handleSessionDecrease,
+      handleIncrease: this.handleSessionIncrease
     }
 
     const buttonStyle = {
