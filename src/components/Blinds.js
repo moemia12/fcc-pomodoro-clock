@@ -22,11 +22,11 @@ const Blinds = (props) => (
         <h1>{props.title}</h1>
         <div style={buttonPlatform}>
             <button onClick={props.handleDecrease}>
-                < i className='fas fa-minus' style={buttonStyle}>-</i>
+                < i style={buttonStyle}>-</i>
             </button>
             <span style={buttonStyle}>{props.count}</span>
             <button onClick={props.handleIncrease}>
-                <i className='fas fa-plus' style={buttonStyle}>+</i>
+                <i style={buttonStyle}>+</i>
             </button>
         </div>
     </div>

@@ -27,6 +27,12 @@ class App extends React.Component {
       count: 25,
       handleDecrease: this.handleBreakDecrease,
       handleIncrease: this.handleBreakIncrease
+    } 
+    
+    const buttonStyle ={
+      padding: '1rem',
+      margin: '0 1rem',
+      
     }
 
     return (
@@ -36,15 +42,16 @@ class App extends React.Component {
           <Blinds {...sessionProps} />
         </div>
 
-        <div className='clock-container'>
-          <h1>Session</h1>
-          <span>25:00</span>
+        <h1>Session</h1>
+        <div className='ClockContainer'>
+          
+          <span >25:00</span>
           <div className='flex'>
             <button onClick={this.handlePlayPause}>
-              <i className='fas fa-play' />
+              <i className='fas fa-play' style={buttonStyle}/>
             </button>
             <button onClick={this.handleReset}>
-              <i className='fas fa-sync' />
+              <i className='fas fa-sync' style={buttonStyle} />
             </button>
           </div>
         </div>

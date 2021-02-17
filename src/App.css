@@ -25,3 +25,14 @@
 }
 
 
+.ClockContainer{
+  position: relative;
+  bottom: 10rem;
+  left: 42.5rem;
+  border-style: solid;
+  width: 30rem;
+  border-radius: 40%;
+  padding: 1rem;
+  
+
+}
