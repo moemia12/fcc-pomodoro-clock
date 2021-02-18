@@ -1,7 +1,7 @@
 const buttonStyle = {
     padding: '1rem',
     margin: '1rem',
-    fontSize: '2rem'
+    fontSize: '2rem',
 };
 
 const buttonPlatform = {
@@ -17,10 +17,13 @@ const buttonPlatform = {
     boxShadow: '0px 0px 15px 5px rgba(0,0,0,0.75)'
 }
 
+
+
 const Blinds = (props) => (
     <div className='timer-container'>
         <h1>{props.title}</h1>
         <div style={buttonPlatform}>
+            <div>
             <button onClick={props.handleDecrease}>
                 < i style={buttonStyle}>-</i>
             </button>
@@ -28,6 +31,7 @@ const Blinds = (props) => (
             <button onClick={props.handleIncrease}>
                 <i style={buttonStyle}>+</i>
             </button>
+            </div>
         </div>
     </div>
 )

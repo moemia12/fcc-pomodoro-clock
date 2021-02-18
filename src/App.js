@@ -5,12 +5,14 @@ import Timer from './components/Timer'
 import React, { Component } from 'react';
 import ClockContainer from './components/ClockContainer'
 
+const audio = document.getElementById('beep');
+
 class App extends React.Component {
     //Initialising states
     state = {
       breakCount: 5,
       sessionCount: 25,
-      clockCount: 25*60,
+      clockCount: 3,
       currentTimer: 'Session',
       isPlaying: false
     }
@@ -55,6 +57,8 @@ class App extends React.Component {
           currentTimer: currentTimer === 'Session' ? 'Break' : 'Session',
           clockCount: (currentTimer === 'Session') ? (breakCount * 60) : (sessionCount * 60)
           })
+
+          audio.play();
           //Countdown from clockCount minus 1second
         } else {
           this.setState({
@@ -75,6 +79,9 @@ class App extends React.Component {
     });
 
     clearInterval(this.loop);
+
+    audio.pause();
+    audio.currentTimer = 0;
   }
 
   //Converting count to seconds & minutes
@@ -85,37 +92,46 @@ class App extends React.Component {
     seconds = seconds < 10 ? ('0' + seconds) : seconds;
     return `${minutes}: ${seconds}`;
   }
-
+ 
+  //Increase / Decrease buttons
   handleBreakDecrease = () =>{
     const {breakCount} = this.state;
 
+    if(breakCount > 0){
     this.setState({
       breakCount: breakCount - 1
-    });
+    })};
   }
 
   handleBreakIncrease = () =>{
     const {breakCount} = this.state;
 
+    if(breakCount < 60){
     this.setState({
       breakCount: breakCount + 1
-    });
+    })};
   }
 
   handleSessionDecrease = () =>{
     const {sessionCount} = this.state;
+    const {clockCount} = this.state;
 
+    if(sessionCount > 0){
     this.setState({
-      sessionCount: sessionCount - 1
-    });
+      sessionCount: sessionCount - 1,
+      clockCount: clockCount -60
+    })};
   }
 
   handleSessionIncrease = () =>{
     const {sessionCount} = this.state;
+    const {clockCount} = this.state
 
+    if(sessionCount < 60){
     this.setState({
-      sessionCount: sessionCount + 1
-    });
+      sessionCount: sessionCount + 1,
+      clockCount: clockCount + 60
+    })};
   }
 
   render() {
@@ -155,7 +171,7 @@ class App extends React.Component {
 
         <div className='ClockContainer'>
           <h1 style={{ position: 'relative', bottom: '7rem' }}>{currentTimer}</h1>
-          <span style={{ position: 'relative', bottom: '5rem', fontSize: '3rem' }}>{this.convertToTime(clockCount)}</span>
+          <span style={{ position: 'relative', bottom: '5rem', fontSize: '3rem' }}>{this.convertToTime(clockCount)}</span> 
           <div className='flex'>
             <button onClick={this.handlePlayPause} style={buttonStyle}>
               <i className={`fas fa-${isPlaying ? 'pause' : 'play'}`} />
