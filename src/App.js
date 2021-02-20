@@ -14,7 +14,7 @@ class App extends React.Component {
       sessionCount: 25,
       clockCount: 3,
       currentTimer: 'Session',
-      isPlaying: false
+      isCounting: false
     }
   
   constructor(props) {
@@ -30,21 +30,21 @@ class App extends React.Component {
 
   //Function to start and pause timer
   handlePlayPause = () => {
-    const { isPlaying } = this.state;
+    const { isCounting } = this.state;
 
     //Loop will be cleared if playing
-    if (isPlaying) {
+    if (isCounting) {
       clearInterval(this.loop);
 
-      // State setto false if playing
+      // State set to false if playing
       this.setState({
-        isPlaying: false
+        isCounting: false
       });
     } else {
 
       // State set to true if playing
       this.setState({
-        isPlaying: true
+        isCounting: true
       })
 
       //Setting the interval loop for starting the countdown
@@ -54,7 +54,7 @@ class App extends React.Component {
         // Chance the Session display to Break display once clockCount hits 0
         if (clockCount === 0) {
           this.setState({
-          currentTimer: currentTimer === 'Session' ? 'Break' : 'Session',
+          currentTimer: (currentTimer === 'Session') ? 'Break' : 'Session',
           clockCount: (currentTimer === 'Session') ? (breakCount * 60) : (sessionCount * 60)
           })
 
@@ -75,7 +75,7 @@ class App extends React.Component {
       sessionCount: 25,
       clockCount: 25 * 60,
       currentTimer: 'Session',
-      isPlaying: false,
+      isCounting: false,
     });
 
     clearInterval(this.loop);
@@ -136,7 +136,7 @@ class App extends React.Component {
 
   render() {
 
-    const { breakCount, sessionCount, clockCount, currentTimer, isPlaying } = this.state;
+    const { breakCount, sessionCount, clockCount, currentTimer, isCounting } = this.state;
 
     const breakProps = {
       title: 'Break Length',
@@ -174,7 +174,7 @@ class App extends React.Component {
           <span style={{ position: 'relative', bottom: '5rem', fontSize: '3rem' }}>{this.convertToTime(clockCount)}</span> 
           <div className='flex'>
             <button onClick={this.handlePlayPause} style={buttonStyle}>
-              <i className={`fas fa-${isPlaying ? 'pause' : 'play'}`} />
+              <i className={`fas fa-${isCounting ? 'pause' : 'play'}`} />
             </button>
             <button onClick={this.handleReset} style={buttonStyle} >
               <i className='fas fa-sync' />

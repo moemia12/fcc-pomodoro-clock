@@ -21,7 +21,7 @@ const buttonPlatform = {
 
 const Blinds = (props) => (
     <div className='timer-container'>
-        <h1>{props.title}</h1>
+        <h1 id={`${props.title.toLowerCase()}-label`}>{props.title}</h1>
         <div style={buttonPlatform}>
             <div>
             <button onClick={props.handleDecrease}>
@@ -33,7 +33,7 @@ const Blinds = (props) => (
             </button>
             </div>
         </div>
-    </div>
+    </div> 
 )
 
 export default Blinds;
