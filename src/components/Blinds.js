@@ -19,21 +19,26 @@ const buttonPlatform = {
 
 
 
-const Blinds = (props) => (
-    <div className='timer-container'>
-        <h1 id={`${props.title.toLowerCase()}-label`}>{props.title}</h1>
-        <div style={buttonPlatform}>
-            <div>
-            <button onClick={props.handleDecrease}>
-                < i style={buttonStyle}>-</i>
-            </button>
-            <span style={buttonStyle}>{props.count}</span>
-            <button onClick={props.handleIncrease}>
-                <i style={buttonStyle}>+</i>
-            </button>
+const Blinds = (props) => {
+    const id = props.title.toLowerCase();
+    
+    return (
+
+        <div className='timer-container'>
+            <h1 id={`${id}-label`}>{props.title}</h1>
+            <div style={buttonPlatform}>
+                <div>
+                    <button id={`${id}-decrement`}onClick={props.handleDecrease}>
+                        < i style={buttonStyle}>-</i>
+                    </button>
+                    <span id={`${id}-length`}style={buttonStyle}>{props.count}</span>
+                    <button id={`${id}-increment`}onClick={props.handleIncrease}>
+                        <i style={buttonStyle}>+</i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div> 
-)
+    )
+}
 
 export default Blinds;

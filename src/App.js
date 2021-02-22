@@ -170,7 +170,7 @@ class App extends React.Component {
 
 
         <div className='ClockContainer'>
-          <h1 style={{ position: 'relative', bottom: '7rem' }}>{currentTimer}</h1>
+          <h1 id='timer-label'style={{ position: 'relative', bottom: '7rem' }}>{currentTimer}</h1>
           <span style={{ position: 'relative', bottom: '5rem', fontSize: '3rem' }}>{this.convertToTime(clockCount)}</span> 
           <div className='flex'>
             <button onClick={this.handlePlayPause} style={buttonStyle}>
