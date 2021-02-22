@@ -76,7 +76,7 @@ class App extends React.Component {
       clockCount: 25 * 60,
       currentTimer: 'Session',
       isCounting: false,
-    });
+    }); 
 
     clearInterval(this.loop);
 
